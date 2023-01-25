@@ -1,24 +1,47 @@
-@mixin contenerdor-general($direccion, $justify, $align){
+@mixin contenerdor-general($direccion, $justify) {
     width: 100vw;
     height: 200px;
     display: flex;
     flex-direction: $direccion;
     justify-content: $justify;
-    align-items: $align;
     border: 1px solid red;
 }
 
-@mixin contender-elemento(){
+@mixin contender-elemento() {
     width: 50px;
     height: 50px;
     border: 1px solid blue;
     background-color: gray;
 }
 
-.flex-container1 {
-    @include contenerdor-general(row, center, center)
+$list-direccion: row row row row row;
+$list-justify: space-evenly space-around space-between flex-end flex-start;
+
+@for $i from 1 to 6 {
+    .flex-conteiner#{$i} {
+        @include contenerdor-general(nth($list-direccion, $i), nth($list-justify, $i));
+    }
 }
 
-.square1{
-    @include contender-elemento()
+$list-direccion: column-reverse row-reverse column row;
+$list-justify: center center center center;
+$list-align: center center center center;
+
+$j: 6;
+@for $i from 1 to 5 {
+    .flex-conteiner#{$j} {
+        width: 100vw;
+        height: 200px;
+        display: flex;
+        flex-direction: nth($list-direccion,$i);
+        justify-content: nth($list-justify, $i);
+        align-items: nth($list-align, $i);
+        border: 1px solid red;
+
+    }
+    $j: $j+1;
+}
+
+.square1 {
+    @include contender-elemento();
 }
